@@ -1,7 +1,11 @@
 defmodule Player do
-  defstruct [:symbol, :goes_first, :my_turn]
+  defstruct [:p_symbol, :goes_first, :my_turn]
 
   @bad_symbols ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+
+  def make_player(ps, gf, mt) do
+    %Player{p_symbol: ps, goes_first: gf, my_turn: mt}
+  end
 
   def obtain_symbol() do
     p_symbol = IO.gets("Please choose your symbol (anything except the numbers 0 - 8): ") |> String.first
