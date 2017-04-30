@@ -5,6 +5,26 @@ defmodule Game do
     play_moves(b, "X")
   end
 
+  @bad_symbols ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+  def obtain_symbol() do
+    p_symbol = IO.gets("Please choose your symbol - anything except digits (0 - 9): ") |> String.first
+    validate_symbol(p_symbol)
+  end
+
+  def validate_symbol(p_symbol) do
+    if (Enum.member?(@bad_symbols, p_symbol)) do
+      IO.write("\nSorry, but that symbol is not allowed. Try again...\n\n")
+      obtain_symbol()
+    else
+      p_symbol
+    end
+  end
+
+
+
+
+
   def print_board([x0,x1,x2,x3,x4,x5,x6,x7,x8]) do
     IO.write("\n--------------\n\n")
     IO.write("  #{x0}   #{x1}   #{x2}\n ===+===+=== \n  #{x3}   #{x4}   #{x5}\n ===+===+=== \n  #{x6}   #{x7}   #{x8}\n")
