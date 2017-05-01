@@ -21,6 +21,19 @@ defmodule Game do
     end
   end
 
+  def obtain_turn() do
+    h_first = IO.gets("Do you want to go first (yes/no): ") |> String.downcase |> String.first
+    validate_turn(h_first)
+  end
+
+  def validate_turn(h_first) do
+    case h_first do
+      "y" -> true
+      "n" -> false
+        _ -> IO.write("\nSorry, but you should type 'yes' or 'no' Try again...\n\n")
+             obtain_turn()
+    end
+  end
 
 
 
