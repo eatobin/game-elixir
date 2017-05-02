@@ -5,10 +5,10 @@ defmodule Game do
     play_moves(b, "X")
   end
 
-  @bad_symbols ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+  @bad_symbols ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "H", "h"]
 
   def obtain_symbol() do
-    p_symbol = IO.gets("Please choose your symbol - anything except digits (0 - 9): ") |> String.first
+    p_symbol = IO.gets("Please choose your symbol - anything on the keyboard except digits (0 - 9)\n or 'H' (that's me, I'm Hal): ") |> String.first
     validate_symbol(p_symbol)
   end
 
