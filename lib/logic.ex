@@ -29,4 +29,8 @@ defmodule Logic do
       true -> board
     end
   end
+
+  # def substitute_square(current_val, proposed_val, board) do
+  #   if is_integer(current_val)
+  # end
 end
