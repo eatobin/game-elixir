@@ -41,14 +41,6 @@ defmodule Game do
     end
   end
 
-  def print_board([x0,x1,x2]) do
-    IO.write("\n--------------\n\n")
-    IO.write("  #{x0}   #{x1}   #{x2}\n")
-    IO.write("\n--------------\n\n")
-  end
-
-
-
   def obtain_human_move(board) do
     h_move = IO.gets("\nWhat number matches your move?: ") |> String.first
     validate_human_move(h_move, board)
@@ -60,8 +52,14 @@ defmodule Game do
     do
       String.to_integer(h_move)
     else
-      IO.write("\nSorry, but that is not a valid move. Try again...\n\n")
+      IO.write("\nSorry, but that is not a valid move - just a number from the board. Try again...\n\n")
       obtain_human_move(board)
+    end
+
+    def print_board([x0,x1,x2]) do
+      IO.write("\n--------------\n\n")
+      IO.write("  #{x0}   #{x1}   #{x2}\n")
+      IO.write("\n--------------\n\n")
     end
   end
   #
