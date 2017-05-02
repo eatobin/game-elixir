@@ -8,10 +8,10 @@ defmodule RulesTest do
   @not_winning_row ["H", 1, "*"]
   @tie_game ["*", "*", "H"]
 
-  test "check for game over (winning row)" do
-    assert Rules.game_over?(@winning_row_hal) == true
-    assert Rules.game_over?(@winning_row_human) == true
-    assert Rules.game_over?(@not_winning_row) == false
+  test "check for game won (winning row)" do
+    assert Rules.game_won?(@winning_row_hal) == true
+    assert Rules.game_won?(@winning_row_human) == true
+    assert Rules.game_won?(@not_winning_row) == false
   end
 
   test "check for tie board" do

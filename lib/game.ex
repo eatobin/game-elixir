@@ -51,7 +51,7 @@ defmodule Game do
   end
   #
   # def play_moves(board, player) do
-  #   if(Rules.game_over?(board) || Rules.tie?(board)) do
+  #   if(Rules.game_won?(board) || Rules.tie?(board)) do
   #     IO.write("Game Over\n")
   #   else
   #     play_moves(choose_move(board, player), toggle_player(player))
@@ -115,8 +115,8 @@ defmodule Game do
   #
   # def get_best_move([first_index|rest], board) do
   #   cond do
-  #     Rules.game_over?(List.replace_at(board, first_index, "O")) -> first_index
-  #     Rules.game_over?(List.replace_at(board, first_index, "X")) -> first_index
+  #     Rules.game_won?(List.replace_at(board, first_index, "O")) -> first_index
+  #     Rules.game_won?(List.replace_at(board, first_index, "X")) -> first_index
   #     true -> get_best_move(rest, board)
   #   end
   # end

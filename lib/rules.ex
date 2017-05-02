@@ -8,7 +8,7 @@ defmodule Rules do
   # check for winning row using short-circuit eval
   # and pure bools
   # returns: true or false
-  def game_over?([x0,_x1,x2]) do
+  def game_won?([x0,_x1,x2]) do
     x0 == x2
   end
 end
