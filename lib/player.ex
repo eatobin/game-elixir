@@ -12,4 +12,8 @@ defmodule Player do
       %{player | my_turn: false}
     end
   end
+
+  def make_hal(human) do
+    make_player("H", !(human.goes_first), !(human.my_turn))
+  end
 end
