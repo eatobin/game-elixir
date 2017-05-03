@@ -55,13 +55,14 @@ defmodule Game do
       IO.write("\nSorry, but that is not a valid move - just a number from the board. Try again...\n\n")
       obtain_human_move(board)
     end
-
-    def print_board([x0,x1,x2]) do
-      IO.write("\n--------------\n\n")
-      IO.write("  #{x0}   #{x1}   #{x2}\n")
-      IO.write("\n--------------\n\n")
-    end
   end
+
+  def print_board([x0,x1,x2]) do
+    IO.write("\n--------------\n\n")
+    IO.write("  #{x0}   #{x1}   #{x2}\n")
+    IO.write("\n--------------\n\n")
+  end
+
   #
   # def play_moves(board, player) do
   #   if(Rules.game_won?(board) || Rules.tie?(board)) do
