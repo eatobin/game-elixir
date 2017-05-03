@@ -11,12 +11,12 @@ defmodule Logic do
   # end
   def move(player, board, h_move) do
     cond do
-      # first move is the Hal's
+      # first move is Hal's
       (player.p_symbol == "H") and
       (Enum.all?(board, fn(x) -> is_integer(x) end)) ->
         (List.replace_at(board, 0, player.p_symbol))
 
-      # subsequent move is the Hal's
+      # subsequent move is Hal's
       (player.p_symbol == "H") and
       (Enum.any?(board, fn(x) -> is_bitstring(x) end)) ->
         #TODO logic to get best move
