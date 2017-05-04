@@ -8,12 +8,4 @@ defmodule Player do
   def make_hal(human) do
     make_player("H", !(human.my_turn))
   end
-
-  def toggle_turn(player) do
-    if (player.my_turn == false) do
-      %{player | my_turn: true}
-    else
-      %{player | my_turn: false}
-    end
-  end
 end

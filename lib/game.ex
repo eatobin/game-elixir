@@ -1,15 +1,37 @@
 defmodule Game do
   def start_game do
-    b = [0, 1, 2]
-    print_board(b)
+    board = [0, 1, "H"]
     human_symbol = obtain_symbol()
-    human_turn = obtain_turn()
-    human_player = Player.make_player(human_symbol, human_turn)
-    computer_player = Player.make_hal(human_player)
-    IO.write(inspect(human_player) <> "\n")
-    IO.write(inspect(computer_player) <> "\n")
-    IO.write(inspect(b) <> "\n")
-    # play_moves(b, "X")
+    # hal_symbol = "H"
+    human_turn? = obtain_turn()
+    # human_player = Player.make_player(human_symbol, human_turn)
+    # computer_player = Player.make_hal(human_player)
+    # IO.write(inspect(human_player) <> "\n")
+    # IO.write(inspect(computer_player) <> "\n")
+    # IO.write(inspect(board) <> "\n")
+    # if human_turn? do
+    #   symbol = human_symbol
+    #   print_board(board)
+    #   move = obtain_human_move(board)
+    #   new_board = List.replace_at(board, move, symbol)
+    #   if(Rules.game_won?(new_board) or Rules.tie?(new_board)) do
+    #     print_board(new_board)
+    #     IO.write("\n\nThe game is over and #{symbol} won! Thanks for playing.\n\n")
+    #   else
+    #     print_board(new_board)
+    #   end
+    # else
+    #   symbol = hal_symbol
+    #   move = MoveLogic.obtain_hal_move(board)
+    #   new_board = List.replace_at(board, move, symbol)
+    #   if(Rules.game_won?(new_board) or Rules.tie?(new_board)) do
+    #     print_board(new_board)
+    #     IO.write("\n\nThe game is over and #{symbol} won! Thanks for playing.\n\n")
+    #   else
+    #     print_board(new_board)
+    #   end
+    # end
+    play_moves(human_turn?, board, human_symbol)
   end
 
   def obtain_symbol() do
@@ -63,19 +85,54 @@ defmodule Game do
     IO.write("\n--------------\n\n")
   end
 
-  #
-  # def play_moves(board, player) do
-  #   if(Rules.game_won?(board) || Rules.tie?(board)) do
-  #     IO.write("Game Over\n")
+
+  def play_moves(human_turn?, board, human_symbol) do
+    if human_turn? do
+      symbol = human_symbol
+      print_board(board)
+      move = obtain_human_move(board)
+      new_board = List.replace_at(board, move, symbol)
+      if(Rules.game_won?(new_board) or Rules.tie?(new_board)) do
+        print_board(new_board)
+        IO.write("\n\nThe game is over and #{symbol} won! Thanks for playing.\n\n")
+      else
+        print_board(new_board)
+      end
+    else
+      symbol = "H"
+      move = MoveLogic.obtain_hal_move(board)
+      new_board = List.replace_at(board, move, symbol)
+      if(Rules.game_won?(new_board) or Rules.tie?(new_board)) do
+        print_board(new_board)
+        IO.write("\n\nThe game is over and #{symbol} won! Thanks for playing.\n\n")
+      else
+        print_board(new_board)
+      end
+    end
+  end
+
+
+
+
+
+
+
+
+  # def play_moves(human_player, computer_player, board) do
+  #   if(Rules.game_won?(board) or Rules.tie?(board)) do
+  #     print_board(board)
+  #     IO.write("\n\nThe game is over and #{player.p_symbol} won! Thanks for playing.\n\n")
   #   else
-  #     play_moves(choose_move(board, player), toggle_player(player))
+  #     play_moves(choose_move(human_player, computer_player, board))
   #   end
   # end
   #
-  # def choose_move(board, player) do
+  # def choose_move(player, board) do
   #   cond do
-  #     player == "X" -> get_humans_turn(board)
-  #     player == "O" -> get_computers_turn(board)
+  #     (player.p_symbol == "H") and
+  #       player.my_turn -> Player.get_hal_move(player, board)
+  #     (player.p_symbol != "H") and
+  #       player.my_turn -> Player.get_hal_move(player, board)
   #   end
   # end
   #

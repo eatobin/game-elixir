@@ -1,37 +1,43 @@
 defmodule MoveLogic do
-  def move(player, board, human_move) do
+  def obtain_hal_move(board) do
     cond do
       # first move is Hal's
-      (player.p_symbol == "H") and
-      (Enum.all?(board, fn(x) -> is_integer(x) end)) ->
-        (List.replace_at(board, 0, "H"))
+      (Enum.all?(board, fn(x) -> is_integer(x) end)) -> 0
 
       # subsequent move is Hal's
-      (player.p_symbol == "H") and
       (Enum.any?(board, fn(x) -> is_bitstring(x) end)) ->
-        candidates = possible_moves(board)
-        get_best_move(candidates, board)
+        candidates = possible_hal_moves(board)
+        get_best_hal_move(candidates, board)
 
-      # a human move
-      (player.p_symbol != "H") ->
-        (List.replace_at(board, human_move, player.p_symbol))
-
-      true -> board
+      true -> nil
     end
   end
 
-  def possible_moves(board) do
+  # def get_human_move(player, board, human_move) do
+  #   cond do
+  #     # a human move
+  #     (List.replace_at(board, human_move, player.p_symbol))
+  #
+  #     true -> board
+  #   end
+  # end
+
+  def possible_hal_moves(board) do
     Enum.filter(board, fn(x) -> is_integer(x) end)
   end
 
-  def get_best_move([candidate|[]], _board) do
+  def get_best_hal_move([candidate|[]], _board) do
     candidate
   end
 
-  def get_best_move([candidate|rest], board) do
+  def get_best_hal_move([candidate|rest], board) do
     cond do
       Rules.game_won?(List.replace_at(board, candidate, "H")) -> candidate
-      true -> get_best_move(rest, board)
+      true -> get_best_hal_move(rest, board)
     end
+  end
+
+  def toggle_turn(human_turn?) do
+    !human_turn?
   end
 end
