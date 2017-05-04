@@ -1,6 +1,6 @@
 defmodule Game do
   def start_game do
-    board = [0, 1, "H"]
+    board = [0, 1, 2]
     human_symbol = obtain_symbol()
     # hal_symbol = "H"
     human_turn? = obtain_turn()
@@ -97,6 +97,7 @@ defmodule Game do
         IO.write("\n\nThe game is over and #{symbol} won! Thanks for playing.\n\n")
       else
         print_board(new_board)
+        play_moves(MoveLogic.toggle_turn(human_turn?), new_board, human_symbol)
       end
     else
       symbol = "H"
@@ -107,6 +108,7 @@ defmodule Game do
         IO.write("\n\nThe game is over and #{symbol} won! Thanks for playing.\n\n")
       else
         print_board(new_board)
+        play_moves(MoveLogic.toggle_turn(human_turn?), new_board, human_symbol)
       end
     end
   end
