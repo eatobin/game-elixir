@@ -8,19 +8,8 @@ defmodule MoveLogic do
       (Enum.any?(board, fn(x) -> is_bitstring(x) end)) ->
         candidates = possible_hal_moves(board)
         get_best_hal_move(candidates, board)
-
-      true -> nil
     end
   end
-
-  # def get_human_move(player, board, human_move) do
-  #   cond do
-  #     # a human move
-  #     (List.replace_at(board, human_move, player.p_symbol))
-  #
-  #     true -> board
-  #   end
-  # end
 
   def possible_hal_moves(board) do
     Enum.filter(board, fn(x) -> is_integer(x) end)
