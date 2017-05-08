@@ -62,7 +62,7 @@ defmodule Game do
     move =
       cond do
         human_turn? -> obtain_human_move(board)
-        true -> MoveLogic.obtain_hal_move(board)
+        true -> MoveLogic.obtain_hal_move(board, human_symbol)
       end
     new_board = List.replace_at(board, move, symbol)
     if human_turn? do

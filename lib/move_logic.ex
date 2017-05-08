@@ -1,13 +1,13 @@
 defmodule MoveLogic do
-  def obtain_hal_move(board) do
+  def obtain_hal_move(board, h_symbol) do
     cond do
-      # first move is Hal's
-      (Enum.all?(board, fn(x) -> is_integer(x) end)) -> 4
+      # if open, first move is Hal's favorite
+      (Enum.at(board, 4) == 4) -> 4
 
       # subsequent move is Hal's
       (Enum.any?(board, fn(x) -> is_bitstring(x) end)) ->
         candidates = possible_hal_moves(board)
-        get_best_hal_move(candidates, board)
+        get_best_hal_move(candidates, board, h_symbol)
     end
   end
 
@@ -15,14 +15,15 @@ defmodule MoveLogic do
     Enum.filter(board, fn(x) -> is_integer(x) end)
   end
 
-  def get_best_hal_move([candidate|[]], _board) do
+  def get_best_hal_move([candidate|[]], _board, _h_symbol) do
     candidate
   end
 
-  def get_best_hal_move([candidate|rest], board) do
+  def get_best_hal_move([candidate|rest], board, h_symbol) do
     cond do
       Rules.game_won?(List.replace_at(board, candidate, "H")) -> candidate
-      true -> get_best_hal_move(rest, board)
+      Rules.game_won?(List.replace_at(board, candidate, h_symbol)) -> candidate
+      true -> get_best_hal_move(rest, board, h_symbol)
     end
   end
 
