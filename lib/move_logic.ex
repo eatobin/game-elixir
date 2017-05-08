@@ -2,7 +2,7 @@ defmodule MoveLogic do
   def obtain_hal_move(board) do
     cond do
       # first move is Hal's
-      (Enum.all?(board, fn(x) -> is_integer(x) end)) -> 0
+      (Enum.all?(board, fn(x) -> is_integer(x) end)) -> 4
 
       # subsequent move is Hal's
       (Enum.any?(board, fn(x) -> is_bitstring(x) end)) ->

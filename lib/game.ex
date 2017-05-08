@@ -1,6 +1,6 @@
 defmodule Game do
   def start_game do
-    board = [0, 1, 2]
+    board = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     human_symbol = obtain_symbol()
     human_turn? = obtain_turn()
     IO.write("\nHere is the opening game board:\n")
@@ -80,9 +80,9 @@ defmodule Game do
     end
   end
 
-  def print_board([x0,x1,x2]) do
+  def print_board([x0,x1,x2,x3,x4,x5,x6,x7,x8]) do
     IO.write("\n--------------\n\n")
-    IO.write("  #{x0}   #{x1}   #{x2}\n")
+    IO.write("  #{x0}   #{x1}   #{x2}\n ===+===+=== \n  #{x3}   #{x4}   #{x5}\n ===+===+=== \n  #{x6}   #{x7}   #{x8}\n")
     IO.write("\n--------------\n")
   end
 end
