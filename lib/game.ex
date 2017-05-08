@@ -92,12 +92,11 @@ defmodule Game do
       print_board(board)
       move = obtain_human_move(board)
       new_board = List.replace_at(board, move, symbol)
-      if(Rules.game_won?(new_board) or Rules.tie?(new_board)) do
-        print_board(new_board)
-        IO.write("\n\nThe game is over and #{symbol} won! Thanks for playing.\n\n")
-      else
-        print_board(new_board)
-        play_moves(MoveLogic.toggle_turn(human_turn?), new_board, human_symbol)
+      cond do
+        Rules.game_won?(new_board) -> write_game_won(new_board)
+        Rules.tie?(new_board) -> write_game_tied(new_board)
+        _ -> print_board(new_board)
+             play_moves(MoveLogic.toggle_turn(human_turn?), new_board, human_symbol)
       end
     else
       symbol = "H"
@@ -110,6 +109,17 @@ defmodule Game do
         print_board(new_board)
         play_moves(MoveLogic.toggle_turn(human_turn?), new_board, human_symbol)
       end
+    end
+
+    def write_game_won(board) do
+        print_board(board)
+        IO.write("\nThe game is over and #{symbol} won! Thanks for playing.\n")
+    end
+
+    def write_game_tied(board) do
+        print_board(board)
+        IO.write("\nThe game is over and it's a tie! Thanks for playing.\n")
+
     end
   end
 
