@@ -86,5 +86,3 @@ defmodule Game do
     IO.write("\n--------------\n")
   end
 end
-
-
