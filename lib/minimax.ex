@@ -33,19 +33,17 @@ defmodule Minimax do
                                      O | O | O
   """
 
-  @orig_board ["O",1,"X","X",4,"X",6,"O","O"]
+  # @orig_board ["X","O","X","O","O","X",6,7,8]
 
   # human
-  @hu_player "O"
+  @player "X"
 
   # ai
-  @ai_player "X"
+  @opponent "O"
 
-  # keeps count of function calls
-  # fc = 0
-
-  # finding the ultimate play on the game that favors the computer
-  # best_spot = minimax(orig_board, ai_player)
+def is_moves_left?(board) do
+  Enum.any?(board, fn(x) -> is_integer(x) end)
+end
 
   @doc """
   the main minimax function
@@ -73,14 +71,19 @@ defmodule Minimax do
   @doc """
   winning combinations using the board indexies
   """
-  def winning([x0,x1,x2,x3,x4,x5,x6,x7,x8], player) do
-    (x0 == player) and (x1 == player) and (x2 == player) or
-    (x3 == player) and (x4 == player) and (x5 == player) or
-    (x6 == player) and (x7 == player) and (x8 == player) or
-    (x0 == player) and (x3 == player) and (x6 == player) or
-    (x1 == player) and (x4 == player) and (x7 == player) or
-    (x2 == player) and (x5 == player) and (x8 == player) or
-    (x0 == player) and (x4 == player) and (x8 == player) or
-    (x2 == player) and (x4 == player) and (x6 == player)
+  def winning([x0,x1,x2,x3,x4,x5,x6,x7,x8]) do
+    cond do
+      (x0 == x1) and (x1 == x2) or
+      (x3 == x4) and (x4 == x5) or
+      (x6 == x7) and (x7 == x8) or
+      (x0 == x3) and (x3 == x6) or
+      (x1 == x4) and (x4 == x7) or
+      (x2 == x5) and (x5 == x8) or
+      (x0 == x4) and (x4 == x8) or
+      (x2 == x4) and (x4 == x6) and
+      # x0 == @player -> 10
+      # player == @opponent -> -10
+      true -> 0
+    end
   end
 end
