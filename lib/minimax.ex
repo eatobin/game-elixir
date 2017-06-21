@@ -31,23 +31,25 @@ defmodule Minimax do
     end
   end
 
-  def toggle_turn(is_max?) do
-    !is_max?
-  end
+  # def toggle_turn(is_max?) do
+  #   !is_max?
+  # end
 
   def possible_moves(board) do
     Enum.filter(board, fn(x) -> is_integer(x) end)
   end
 
-  def minimax(board, depth, is_max?) do
+  def minimax(board, is_max?) do
     score = evaluate(board, is_max?)
 
     cond do
       score == 10 -> score
       score == -10 -> score
       !is_moves_left?(board) -> 0
-      is_max? -> pm = possible_moves(board)
-                 pm
+      is_max? -> best = -1000
+                 [candidate|_rest] = possible_moves(board)
+                 best = max(best, minimax((List.replace_at(board, candidate, @player), !is_max?))
+                 List.replace_at(board, candidate, @player)
     end
   end
 end
