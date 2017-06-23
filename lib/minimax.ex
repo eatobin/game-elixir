@@ -27,7 +27,8 @@ defmodule Minimax do
     cond do
       won?(board) and is_max? -> 10
       won?(board) and !is_max? -> -10
-      true -> 0
+      !is_moves_left?(board) -> 0
+      true -> nil
     end
   end
 
@@ -52,17 +53,13 @@ defmodule Minimax do
   end
 
 
-  # def minimax(board, is_max?) do
-  #   score = evaluate(board, is_max?)
-  #
-  #   cond do
-  #     score == 10 -> score
-  #     score == -10 -> score
-  #     !is_moves_left?(board) -> 0
-  #     is_max? -> best = -1000
-  #                [candidate|_rest] = possible_moves(board)
-  #                best = max(best, minimax((List.replace_at(board, candidate, @player), !is_max?))
-  #                List.replace_at(board, candidate, @player)
-  #   end
-  # end
+  def minimax(board, is_max?) do
+    score = evaluate(board, is_max?)
+    cond do
+      score == 10 -> score
+      score == -10 -> score
+      score == 0 -> 0
+      is_nil(score) -> minimax((List.replace_at(board, candidate, "R"), !is_max?))
+    end
+  end
 end
