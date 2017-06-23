@@ -3,10 +3,10 @@ defmodule Minimax do
   # @orig_board ["X","O","X","O","O","X",6,7,8]
 
   # human
-  @player "X"
+  # @player "X"
 
   # ai
-  @opponent "O"
+  # @opponent "O"
 
   def is_moves_left?(board) do
     Enum.any?(board, fn(x) -> is_integer(x) end)
@@ -39,17 +39,30 @@ defmodule Minimax do
     Enum.filter(board, fn(x) -> is_integer(x) end)
   end
 
-  def minimax(board, is_max?) do
-    score = evaluate(board, is_max?)
-
-    cond do
-      score == 10 -> score
-      score == -10 -> score
-      !is_moves_left?(board) -> 0
-      is_max? -> best = -1000
-                 [candidate|_rest] = possible_moves(board)
-                 best = max(best, minimax((List.replace_at(board, candidate, @player), !is_max?))
-                 List.replace_at(board, candidate, @player)
+  def ident(x) do
+    if is_integer(x) do
+      x + 1
+    else
+      x
     end
   end
+
+  def map_it() do
+    Enum.map(["X","O","X","O","O","X",6,7,8], &ident/1)
+  end
+
+
+  # def minimax(board, is_max?) do
+  #   score = evaluate(board, is_max?)
+  #
+  #   cond do
+  #     score == 10 -> score
+  #     score == -10 -> score
+  #     !is_moves_left?(board) -> 0
+  #     is_max? -> best = -1000
+  #                [candidate|_rest] = possible_moves(board)
+  #                best = max(best, minimax((List.replace_at(board, candidate, @player), !is_max?))
+  #                List.replace_at(board, candidate, @player)
+  #   end
+  # end
 end
