@@ -41,15 +41,26 @@ defmodule Minimax do
   end
 
   def ident(x) do
-    if is_integer(x) do
-      x + 1
-    else
+    if is_bitstring(x) do
       x
+    else
+      x + 1
+    end
+  end
+
+  def ident2(x) do
+    cond do
+      is_bitstring(x) ->
+        x
+      x == 0 ->
+        0
+      true ->
+        ident2(x - 1)
     end
   end
 
   def map_it() do
-    Enum.map(["X","O","X","O","O","X",6,7,8], &ident/1)
+    Enum.map(["X","O","X","O","O","X",6,"X",12], &ident2/1)
   end
 
 
@@ -59,7 +70,7 @@ defmodule Minimax do
       score == 10 -> score
       score == -10 -> score
       score == 0 -> 0
-      is_nil(score) -> minimax((List.replace_at(board, candidate, "R"), !is_max?))
+      # is_nil(score) -> minimax((List.replace_at(board, candidate, "R"), !is_max?))
     end
   end
 end
