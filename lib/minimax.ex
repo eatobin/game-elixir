@@ -1,3 +1,25 @@
+# def minimax(game_state):
+#   return max(
+#     map(lambda move: (move, min_play(game_state.next_state(move))),
+#       game_state.get_available_moves()),
+#     key = lambda x: x[1])
+#
+# def min_play(game_state):
+#   if game_state.is_gameover():
+#     return evaluate(game_state)
+#   return min(
+#     map(lambda move: max_play(game_state.next_state(move)),
+#       game_state.get_available_moves()))
+#
+# def max_play(game_state):
+#   if game_state.is_gameover():
+#     return evaluate(game_state)
+#   return max(
+#     map(lambda move: min_play(game_state.next_state(move)),
+#       game_state.get_available_moves()))
+
+
+
 defmodule Minimax do
 
   # @orig_board ["X","O","X","O","O","X",6,7,8]
@@ -63,14 +85,13 @@ defmodule Minimax do
     Enum.map(["X","O","X","O","O","X",6,"X",12], &ident2/1)
   end
 
-
-  def minimax(board, is_max?) do
-    score = evaluate(board, is_max?)
-    cond do
-      score == 10 -> score
-      score == -10 -> score
-      score == 0 -> 0
-      # is_nil(score) -> minimax((List.replace_at(board, candidate, "R"), !is_max?))
-    end
-  end
+  # def minimax(board, is_max?) do
+  #   score = evaluate(board, is_max?)
+  #   cond do
+  #     score == 10 -> score
+  #     score == -10 -> score
+  #     score == 0 -> 0
+  #     # is_nil(score) -> minimax((List.replace_at(board, candidate, "R"), !is_max?))
+  #   end
+  # end
 end
