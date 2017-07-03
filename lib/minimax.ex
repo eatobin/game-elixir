@@ -58,8 +58,12 @@ defmodule Minimax do
   #   !is_max?
   # end
 
-  def possible_moves(board) do
-    Enum.filter(board, fn(x) -> is_integer(x) end)
+  def get_available_moves(game_state) do
+    Enum.filter(game_state.board, fn(x) -> is_integer(x) end)
+  end
+
+  def next_state(game_state, move) do
+    List.replace_at(game_state.board, move, game_state.player)
   end
 
   def ident(x) do
