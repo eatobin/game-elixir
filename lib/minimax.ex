@@ -22,13 +22,13 @@
 
 defmodule Minimax do
 
-  # @orig_board ["X","O","X","O","O","X",6,7,8]
+  # s = %GameState{board: ["X","O","X","O","O","X",6,7,8], player: "X"}
 
   # human
-  # @player "X"
+  @player "XX"
 
   # ai
-  # @opponent "O"
+  @opponent "OO"
 
   # def is_moves_left?(board) do
   #   Enum.any?(board, fn(x) -> is_integer(x) end)
@@ -63,7 +63,7 @@ defmodule Minimax do
   end
 
   def next_state(game_state, move) do
-    %GameState{board: List.replace_at(game_state.board, move, game_state.player), player: "X"}
+    %GameState{board: List.replace_at(game_state.board, move, game_state.player), player: toggle_player(game_state.player)}
   end
 
   def is_gameover(game_state) do
@@ -108,13 +108,13 @@ defmodule Minimax do
   #   Enum.max(Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end))
   # end
 
-  # def ident(x) do
-  #   if is_bitstring(x) do
-  #     x
-  #   else
-  #     x + 1
-  #   end
-  # end
+  def toggle_player(p) do
+    if p == @player do
+      @opponent
+    else
+      @player
+    end
+  end
   #
   # def ident2(x) do
   #   cond do
