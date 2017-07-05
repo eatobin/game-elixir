@@ -22,7 +22,7 @@
 
 defmodule Minimax do
 
-  # s = %GameState{board: ["X","O","X","O","O","X",6,7,8], player: "X"}
+  # s = %GameState{board: ["O","O","X","X","O","O","O","X",8], player: "O"}
 
   # human
   @player "XX"
@@ -89,21 +89,23 @@ defmodule Minimax do
 
   def min_play(game_state) do
     if is_gameover(game_state) do
-      "Done"
+      -100
     else
-      Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end)
+      # Enum.min(Enum.map(get_available_moves(game_state), fn(x) -> max_play(next_state(game_state, x)) end))
+      Enum.map(get_available_moves(game_state), fn(x) -> max_play(next_state(game_state, x)) end)
     end
   end
 
 
-  # def max_play(game_state) do
-  #   if is_gameover(game_state) do
-  #     10
-  #   else
-  #     Enum.max(Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end))
-  #   end
-  # end
-  #
+  def max_play(game_state) do
+    if is_gameover(game_state) do
+      -200
+    else
+      # Enum.max(Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end))
+      Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end)
+    end
+  end
+
   # def minimax(game_state) do
   #   Enum.max(Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end))
   # end
