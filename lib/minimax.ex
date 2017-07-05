@@ -22,13 +22,14 @@
 
 defmodule Minimax do
 
-  # s = %GameState{board: ["O","O","X","X","O","O","O","X",8], player: "O"}
+  # o = %GameState{board: ["O","O","X","X","O","X","O","X",8], player: "O"}
+  # x = %GameState{board: ["O","O","X","X","O","X","O","X",8], player: "X"}
 
   # human
-  @player "XX"
+  @player "X"
 
   # ai
-  @opponent "OO"
+  @opponent "O"
 
   # def is_moves_left?(board) do
   #   Enum.any?(board, fn(x) -> is_integer(x) end)
@@ -44,15 +45,14 @@ defmodule Minimax do
   #   (x0 == x4) and (x4 == x8) or
   #   (x2 == x4) and (x4 == x6)
   # end
-  #
-  # def evaluate(board, is_max?) do
-  #   cond do
-  #     won?(board) and is_max? -> 10
-  #     won?(board) and !is_max? -> -10
-  #     !is_moves_left?(board) -> 0
-  #     true -> nil
-  #   end
-  # end
+
+  def evaluate(game_state) do
+    cond do
+      won?(game_state) and game_state.player == @player -> 10
+      won?(game_state) and game_state.player == @opponent -> -10
+      true -> 0
+    end
+  end
 
   # def toggle_turn(is_max?) do
   #   !is_max?
@@ -67,6 +67,14 @@ defmodule Minimax do
   end
 
   def is_gameover(game_state) do
+    cond do
+      won?(game_state) -> true
+      !won?(game_state) and all_taken?(game_state) -> true
+      true -> false
+    end
+  end
+
+  def won?(game_state) do
     [x0,x1,x2,x3,x4,x5,x6,x7,x8] = game_state.board
     (x0 == x1) and (x1 == x2) or
     (x3 == x4) and (x4 == x5) or
@@ -76,6 +84,10 @@ defmodule Minimax do
     (x2 == x5) and (x5 == x8) or
     (x0 == x4) and (x4 == x8) or
     (x2 == x4) and (x4 == x6)
+  end
+
+  def all_taken?(game_state) do
+    Enum.all?(game_state.board, fn(x) -> is_bitstring(x) end)
   end
 
   # def min_play(game_state) do
@@ -89,20 +101,20 @@ defmodule Minimax do
 
   def min_play(game_state) do
     if is_gameover(game_state) do
-      -100
+      evaluate(game_state)
     else
-      # Enum.min(Enum.map(get_available_moves(game_state), fn(x) -> max_play(next_state(game_state, x)) end))
-      Enum.map(get_available_moves(game_state), fn(x) -> max_play(next_state(game_state, x)) end)
+      Enum.min(Enum.map(get_available_moves(game_state), fn(x) -> max_play(next_state(game_state, x)) end))
+      # Enum.map(get_available_moves(game_state), fn(x) -> max_play(next_state(game_state, x)) end)
     end
   end
 
 
   def max_play(game_state) do
     if is_gameover(game_state) do
-      -200
+      evaluate(game_state)
     else
-      # Enum.max(Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end))
-      Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end)
+      Enum.max(Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end))
+      # Enum.map(get_available_moves(game_state), fn(x) -> min_play(next_state(game_state, x)) end)
     end
   end
 
