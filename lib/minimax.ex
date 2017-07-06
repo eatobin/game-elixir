@@ -13,9 +13,10 @@ defmodule Minimax do
   @opponent "O"
 
   def evaluate(game_state) do
+    player = toggle_player(game_state.player)
     cond do
-      won?(game_state) and game_state.player == @player -> 10
-      won?(game_state) and game_state.player == @opponent -> -10
+      won?(game_state) and player == @player -> 10
+      won?(game_state) and player == @opponent -> -10
       true -> 0
     end
   end
