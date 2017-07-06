@@ -4,6 +4,7 @@ defmodule Minimax do
   # x = %GameState{board: ["O","O","X","X","O","X","O","X",8], player: "X"}
   # oo = %GameState{board: ["O","O","X","X","O","O","O","X",8], player: "O"}
   # gg = %GameState{board: ["O","O","X","X","O","O",6,"X",8], player: "O"}
+  # %GameState{board: [0,1,2,3,4,5,6,7,8], player: "O"}
 
   # human
   @player "X"
