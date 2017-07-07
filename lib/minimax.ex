@@ -1,15 +1,19 @@
 defmodule Minimax do
 
-  # o = %GameState{board: ["O","O","X","X","O","X","O","X",8], player: "O"}
-  # x = %GameState{board: ["O","O","X","X","O","X","O","X",8], player: "X"}
-  # oo = %GameState{board: ["O","O","X","X","O","O","O","X",8], player: "O"}
-  # gg = %GameState{board: ["O","O","X","X","O","O",6,"X",8], player: "O"}
-  # %GameState{board: [0,1,2,3,4,5,6,7,8], player: "O"}
+  # o = %GameState{board: ["O","a","b","c","O","d","e","f",8], player: "O"}
+  # x = %GameState{board: ["X","a","b","c","X","d","e","f",8], player: "X"}
+  # o1 = %GameState{board: ["O","a","b","c","O","d",6,"f",8], player: "O"}
+  # x1 = %GameState{board: ["X","a","b","c","X","d",6,"f",8], player: "X"}
+  # o_start = %GameState{board: [0,1,2,3,4,5,6,7,8], player: "O"}
+  # o_one = %GameState{board: ["X",1,2,3,"O",5,6,7,8], player: "O"}
 
-  # human
+  # min_play = opposing player
+  # max_play = currnt player
+
+  # maximize - ai
   @player "X"
 
-  # ai
+  # minimize - human
   @opponent "O"
 
   def evaluate(game_state) do
@@ -70,8 +74,8 @@ defmodule Minimax do
   end
 
   def minimax(game_state) do
-    # Enum.max_by(Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end), fn({_i, v}) -> v end)
-    Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end)
+    Enum.max_by(Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end), fn({_i, v}) -> v end)
+    # Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end)
   end
 
   def toggle_player(p) do
