@@ -9,6 +9,8 @@ defmodule Minimax do
   # sample = %GameState{board: ["O",1,"X","X",4,5,"X","O","O"], player: "X"}
   # sample2 = %GameState{board: [0,"X",2,3,4,"X","O","O","X"], player: "O"}
   # sample3 = %GameState{board: ["O",1,"X","X",4,"X",6,"O","O"], player: "X"}
+  # sample4 = %GameState{board: ["X","O",2,3,"O",5,6,7,8], player: "X"}
+  # sample5 = %GameState{board: ["X","O",2,3,"X",5,6,"O",8], player: "X"}
 
   # min_play = opposing player
   # max_play = currnt player
