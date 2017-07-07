@@ -6,6 +6,9 @@ defmodule Minimax do
   # x1 = %GameState{board: ["X","a","b","c","X","d",6,"f",8], player: "X"}
   # o_start = %GameState{board: [0,1,2,3,4,5,6,7,8], player: "O"}
   # o_one = %GameState{board: ["X",1,2,3,"O",5,6,7,8], player: "O"}
+  # sample = %GameState{board: ["O",1,"X","X",4,5,"X","O","O"], player: "X"}
+  # sample2 = %GameState{board: [0,"X",2,3,4,"X","O","O","X"], player: "O"}
+  # sample3 = %GameState{board: ["O",1,"X","X",4,"X",6,"O","O"], player: "X"}
 
   # min_play = opposing player
   # max_play = currnt player
@@ -74,8 +77,8 @@ defmodule Minimax do
   end
 
   def minimax(game_state) do
-    Enum.max_by(Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end), fn({_i, v}) -> v end)
-    # Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end)
+    # Enum.max_by(Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end), fn({_i, v}) -> v end)
+    Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end)
   end
 
   def toggle_player(p) do
