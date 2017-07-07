@@ -11,6 +11,7 @@ defmodule Minimax do
   # sample3 = %GameState{board: ["O",1,"X","X",4,"X",6,"O","O"], player: "X"}
   # sample4 = %GameState{board: ["X","O",2,3,"O",5,6,7,8], player: "X"}
   # sample5 = %GameState{board: ["X","O",2,3,"X",5,6,"O",8], player: "X"}
+  # start = %GameState{board: [0,1,2,3,4,5,6,7,8], player: "X"}
 
   # min_play = opposing player
   # max_play = currnt player
@@ -24,8 +25,8 @@ defmodule Minimax do
   def evaluate(game_state) do
     player = toggle_player(game_state.player)
     cond do
-      won?(game_state) and player == @player -> 10
-      won?(game_state) and player == @opponent -> -10
+      won?(game_state) and player == @player -> 10 - game_state.depth
+      won?(game_state) and player == @opponent -> game_state.depth - 10
       true -> 0
     end
   end
@@ -35,7 +36,7 @@ defmodule Minimax do
   end
 
   def next_state(game_state, move) do
-    %GameState{board: List.replace_at(game_state.board, move, game_state.player), player: toggle_player(game_state.player)}
+    %GameState{board: List.replace_at(game_state.board, move, game_state.player), player: toggle_player(game_state.player), depth: game_state.depth + 1}
   end
 
   def is_gameover(game_state) do
