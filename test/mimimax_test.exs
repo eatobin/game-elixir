@@ -2,9 +2,6 @@ ExUnit.start
 
 defmodule MinimaxTest do
   use ExUnit.Case, async: true
-  setup do
-    Code.require_file("lib/game_state.ex")
-  end
 
   @x %GameState{board: ["X","a","b","c","X","d","e","f",8], player: "X"}
   @sample %GameState{board: ["O",1,"X","X",4,5,"X","O","O"], player: "X"}
