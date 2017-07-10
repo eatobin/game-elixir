@@ -17,16 +17,15 @@ defmodule Minimax do
   # max_play = currnt player
 
   # maximize - ai
-  @player "max"
+  # @player "max"
 
   # minimize - human
-  @opponent "min"
+  # @opponent "min"
 
   def evaluate(game_state) do
-    player = toggle_player(game_state.player)
     cond do
-      won?(game_state) and player == @player -> 10 - game_state.depth
-      won?(game_state) and player == @opponent -> game_state.depth - 10
+      won?(game_state) and toggle_player(game_state.player) == "max" -> 10 - game_state.depth
+      won?(game_state) and toggle_player(game_state.player) == "min" -> game_state.depth - 10
       true -> 0
     end
   end
@@ -84,11 +83,11 @@ defmodule Minimax do
     # Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end)
   end
 
-  def toggle_player(p) do
-    if p == @player do
-      @opponent
+  def toggle_player(player) do
+    if player == "max" do
+      "min"
     else
-      @player
+      "max"
     end
   end
 end

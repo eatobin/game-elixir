@@ -1,3 +1,3 @@
 defmodule GameState do
-  defstruct board: [], player: "", depth: 0
+  defstruct board: [], player: "max", depth: 0
 end
