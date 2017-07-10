@@ -3,11 +3,11 @@ ExUnit.start
 defmodule MinimaxTest do
   use ExUnit.Case, async: true
 
-  @x %GameState{board: ["X","a","b","c","X","d","e","f",8], player: "X"}
-  @sample %GameState{board: ["O",1,"X","X",4,5,"X","O","O"], player: "X"}
-  @sample3 %GameState{board: ["O",1,"X","X",4,"X",6,"O","O"], player: "X"}
-  @sample5 %GameState{board: ["X","O",2,3,"X",5,6,"O",8], player: "X"}
-  @start %GameState{board: [0,1,2,3,4,5,6,7,8], player: "X"}
+  @x %GameState{board: ["max","a","b","c","max","d","e","f",8], player: "max"}
+  @sample %GameState{board: ["min",1,"max","max",4,5,"max","min","min"], player: "max"}
+  @sample3 %GameState{board: ["min",1,"max","max",4,"max",6,"min","min"], player: "max"}
+  @sample5 %GameState{board: ["max","min",2,3,"max",5,6,"min",8], player: "max"}
+  @start %GameState{board: [0,1,2,3,4,5,6,7,8], player: "max"}
 
   test "check for best AI move" do
     assert Minimax.minimax(@x) == {8, 9}

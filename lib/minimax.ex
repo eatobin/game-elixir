@@ -17,10 +17,10 @@ defmodule Minimax do
   # max_play = currnt player
 
   # maximize - ai
-  @player "X"
+  @player "max"
 
   # minimize - human
-  @opponent "O"
+  @opponent "min"
 
   def evaluate(game_state) do
     player = toggle_player(game_state.player)
