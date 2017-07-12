@@ -17,15 +17,16 @@ defmodule Minimax do
   # max_play = currnt player
 
   # maximize - ai
-  # @player "max"
+  @player "X"
 
   # minimize - human
-  # @opponent "min"
+  @opponent "O"
 
   def evaluate(game_state) do
+    player = toggle_player(game_state.player)
     cond do
-      won?(game_state) and toggle_player(game_state.player) == "max" -> 10 - game_state.depth
-      won?(game_state) and toggle_player(game_state.player) == "min" -> game_state.depth - 10
+      won?(game_state) and player == @player -> 10 - game_state.depth
+      won?(game_state) and player == @opponent -> game_state.depth - 10
       true -> 0
     end
   end
@@ -84,10 +85,10 @@ defmodule Minimax do
   end
 
   def toggle_player(player) do
-    if player == "max" do
-      "min"
+    if player == @player do
+      @opponent
     else
-      "max"
+      @player
     end
   end
 end
