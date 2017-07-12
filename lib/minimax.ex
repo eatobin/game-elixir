@@ -1,7 +1,7 @@
 defmodule Minimax do
 
   # o = %GameState{board: ["O","a","b","c","O","d","e","f",8], player: "O"}
-  # x = %GameState{board: ["X","a","b","c","X","d","e","f",8], player: "X"}
+  # x = %GameState{board: ["X","a","b","c","X","d","e","f",8], player: "X", ai_sym: "X", depth: 0, h_sym: "O"}
   # o1 = %GameState{board: ["O","a","b","c","O","d",6,"f",8], player: "O"}
   # x1 = %GameState{board: ["X","a","b","c","X","d",6,"f",8], player: "X"}
   # o_start = %GameState{board: [0,1,2,3,4,5,6,7,8], player: "O"}
@@ -23,10 +23,12 @@ defmodule Minimax do
   @opponent "O"
 
   def evaluate(game_state) do
-    player = toggle_player(game_state.player)
+    # player = toggle_player(game_state.player)
     cond do
-      won?(game_state) and player == @player -> 10 - game_state.depth
-      won?(game_state) and player == @opponent -> game_state.depth - 10
+      # won?(game_state) and player == @player -> 10 - game_state.depth
+      # won?(game_state) and player == @opponent -> game_state.depth - 10
+      won?(game_state) and toggle_player(game_state) == game_state.ai_sym -> 10 - game_state.depth
+      won?(game_state) and toggle_player(game_state) == game_state.h_sym -> game_state.depth - 10
       true -> 0
     end
   end
@@ -36,7 +38,8 @@ defmodule Minimax do
   end
 
   def next_state(game_state, move) do
-    %GameState{board: List.replace_at(game_state.board, move, game_state.player), player: toggle_player(game_state.player), depth: game_state.depth + 1}
+    # %GameState{board: List.replace_at(game_state.board, move, game_state.player), player: toggle_player(game_state.player), depth: game_state.depth + 1}
+    %{game_state | board: List.replace_at(game_state.board, move, game_state.player), player: toggle_player(game_state), depth: game_state.depth + 1}
   end
 
   def is_gameover(game_state) do
@@ -84,11 +87,19 @@ defmodule Minimax do
     # Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end)
   end
 
-  def toggle_player(player) do
-    if player == @player do
-      @opponent
+  # def toggle_player(player) do
+  #   if player == @player do
+  #     @opponent
+  #   else
+  #     @player
+  #   end
+  # end
+
+  def toggle_player(game_state) do
+    if game_state.player == game_state.ai_sym do
+      game_state.h_sym
     else
-      @player
+      game_state.ai_sym
     end
   end
 end
