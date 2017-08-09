@@ -1,105 +1,28 @@
 defmodule Minimax do
-
-  # o = %GameState{board: ["O","a","b","c","O","d","e","f",8], player: "O"}
-  # x = %GameState{board: ["X","a","b","c","X","d","e","f",8], player: "X", ai_sym: "X", depth: 0, h_sym: "O"}
-  # o1 = %GameState{board: ["O","a","b","c","O","d",6,"f",8], player: "O"}
-  # x1 = %GameState{board: ["X","a","b","c","X","d",6,"f",8], player: "X"}
-  # o_start = %GameState{board: [0,1,2,3,4,5,6,7,8], player: "O"}
-  # o_one = %GameState{board: ["X",1,2,3,"O",5,6,7,8], player: "O"}
-  # sample = %GameState{board: ["O",1,"X","X",4,5,"X","O","O"], player: "X"}
-  # sample2 = %GameState{board: [0,"X",2,3,4,"X","O","O","X"], player: "O"}
-  # sample3 = %GameState{board: ["O",1,"X","X",4,"X",6,"O","O"], player: "X"}
-  # sample4 = %GameState{board: ["X","O",2,3,"O",5,6,7,8], player: "X"}
-  # sample5 = %GameState{board: ["X","O",2,3,"X",5,6,"O",8], player: "X"}
-  # start = %GameState{board: [0,1,2,3,4,5,6,7,8], player: "X"}
-
-  # min_play = opposing player
-  # max_play = currnt player
-
-  # maximize - ai
-  # @player "X"
-
-  # minimize - human
-  # @opponent "O"
-
-  def evaluate(game_state) do
-    # player = toggle_player(game_state.player)
-    cond do
-      # won?(game_state) and player == @player -> 10 - game_state.depth
-      # won?(game_state) and player == @opponent -> game_state.depth - 10
-      won?(game_state) and toggle_player(game_state) == game_state.ai_sym -> 10 - game_state.depth
-      won?(game_state) and toggle_player(game_state) == game_state.h_sym -> game_state.depth - 10
-      true -> 0
-    end
-  end
-
-  def get_available_moves(game_state) do
-    Enum.filter(game_state.board, fn(x) -> is_integer(x) end)
-  end
-
-  def next_state(game_state, move) do
-    # %GameState{board: List.replace_at(game_state.board, move, game_state.player), player: toggle_player(game_state.player), depth: game_state.depth + 1}
-    %{game_state | board: List.replace_at(game_state.board, move, game_state.player), player: toggle_player(game_state), depth: game_state.depth + 1}
-  end
-
-  def is_gameover(game_state) do
-    cond do
-      won?(game_state) -> true
-      !won?(game_state) and all_taken?(game_state) -> true
-      true -> false
-    end
-  end
-
-  def won?(game_state) do
-    [x0,x1,x2,x3,x4,x5,x6,x7,x8] = game_state.board
-    (x0 == x1) and (x1 == x2) or
-    (x3 == x4) and (x4 == x5) or
-    (x6 == x7) and (x7 == x8) or
-    (x0 == x3) and (x3 == x6) or
-    (x1 == x4) and (x4 == x7) or
-    (x2 == x5) and (x5 == x8) or
-    (x0 == x4) and (x4 == x8) or
-    (x2 == x4) and (x4 == x6)
-  end
-
-  def all_taken?(game_state) do
-    Enum.all?(game_state.board, fn(s) -> is_bitstring(s) end)
-  end
-
-  def min_play(game_state) do
-    if is_gameover(game_state) do
-      evaluate(game_state)
-    else
-      Enum.min(Enum.map(get_available_moves(game_state), fn(m) -> max_play(next_state(game_state, m)) end))
-    end
-  end
-
-  def max_play(game_state) do
-    if is_gameover(game_state) do
-      evaluate(game_state)
-    else
-      Enum.max(Enum.map(get_available_moves(game_state), fn(m) -> min_play(next_state(game_state, m)) end))
-    end
-  end
-
+  # The entrance point for the recursive minimax function.
+  # Maps over a list of all remaining moves.
+  # Returns a tuple of {best_move_position, value of the move}.
   def minimax(game_state) do
-    Enum.max_by(Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end), fn({_i, v}) -> v end)
-    # Enum.map(get_available_moves(game_state), fn(m) -> {m, min_play(next_state(game_state, m))} end)
+    Enum.max_by(Enum.map(GameState.get_available_moves(game_state), fn(m) -> {m, min_play(GameState.next_state(game_state, m))} end), fn({_i, v}) -> v end)
   end
 
-  # def toggle_player(player) do
-  #   if player == @player do
-  #     @opponent
-  #   else
-  #     @player
-  #   end
-  # end
-
-  def toggle_player(game_state) do
-    if game_state.player == game_state.ai_sym do
-      game_state.h_sym
+  # Returns the best move for the mininimizing player (human) once the move
+  #   recursion ends.
+  def min_play(game_state) do
+    if GameState.is_gameover?(game_state) do
+      GameState.evaluate(game_state)
     else
-      game_state.ai_sym
+      Enum.min(Enum.map(GameState.get_available_moves(game_state), fn(m) -> max_play(GameState.next_state(game_state, m)) end))
+    end
+  end
+
+  # Returns the best move for the mininimizing player (ai) once the move
+  #   recursion ends.
+  def max_play(game_state) do
+    if GameState.is_gameover?(game_state) do
+      GameState.evaluate(game_state)
+    else
+      Enum.max(Enum.map(GameState.get_available_moves(game_state), fn(m) -> min_play(GameState.next_state(game_state, m)) end))
     end
   end
 end
