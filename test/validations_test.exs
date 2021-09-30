@@ -1,4 +1,4 @@
-ExUnit.start
+ExUnit.start()
 
 defmodule ValidationsTest do
   use ExUnit.Case, async: true
@@ -28,7 +28,7 @@ defmodule ValidationsTest do
 
   test "valid human move (a digit still on the board) is valid" do
     # Enter a valid open move
-    assert Validations.validate_human_move("3", ["X","X","X",3]) == 3
+    assert Validations.validate_human_move("3", ["X", "X", "X", 3]) == 3
     # Invalid symbol requires a recursive function call - not tested
     #   (but would like to learn how!)
   end
