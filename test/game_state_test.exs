@@ -1,14 +1,33 @@
-ExUnit.start
+ExUnit.start()
 
 defmodule GameStateTest do
   use ExUnit.Case, async: true
 
-  @ai_wins_in_one %GameState{board: ["A","a","b","c","A","d","e","f",8], player: "A", ai_symbol: "A", depth: 0, human_symbol: "H"}
-  @won %GameState{board: ["A","a","b","c","A","d","e","f","A"], player: "A", ai_symbol: "A", depth: 0, human_symbol: "H"}
-  @tied %GameState{board: ["A","a","b","c","A","d","e","f","g"], player: "A", ai_symbol: "A", depth: 0, human_symbol: "H"}
+  @ai_wins_in_one %GameState{
+    board: ["A", "a", "b", "c", "A", "d", "e", "f", 8],
+    player: "A",
+    ai_symbol: "A",
+    depth: 0,
+    human_symbol: "H"
+  }
+  @won %GameState{
+    board: ["A", "a", "b", "c", "A", "d", "e", "f", "A"],
+    player: "A",
+    ai_symbol: "A",
+    depth: 0,
+    human_symbol: "H"
+  }
+  @tied %GameState{
+    board: ["A", "a", "b", "c", "A", "d", "e", "f", "g"],
+    player: "A",
+    ai_symbol: "A",
+    depth: 0,
+    human_symbol: "H"
+  }
 
   test "get_available_moves" do
-    assert GameState.get_available_moves(@ai_wins_in_one) == '\b' # Elixir for [8]!
+    # Elixir for [8]!
+    assert GameState.get_available_moves(@ai_wins_in_one) == '\b'
   end
 
   test "all_taken?" do
@@ -16,9 +35,13 @@ defmodule GameStateTest do
   end
 
   test "next_state" do
-    assert GameState.next_state(@ai_wins_in_one, 8) == %GameState{ai_symbol: "A",
-      board: ["A", "a", "b", "c", "A", "d", "e", "f", "A"], depth: 1,
-      human_symbol: "H", player: "H"}
+    assert GameState.next_state(@ai_wins_in_one, 8) == %GameState{
+             ai_symbol: "A",
+             board: ["A", "a", "b", "c", "A", "d", "e", "f", "A"],
+             depth: 1,
+             human_symbol: "H",
+             player: "H"
+           }
   end
 
   test "won?" do
