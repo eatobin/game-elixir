@@ -27,7 +27,7 @@ defmodule GameStateTest do
 
   test "get_available_moves" do
     # Elixir for [8]!
-    assert GameState.get_available_moves(@ai_wins_in_one) == '\b'
+    assert GameState.get_available_moves(@ai_wins_in_one) == ~c"\b"
   end
 
   test "all_taken?" do
